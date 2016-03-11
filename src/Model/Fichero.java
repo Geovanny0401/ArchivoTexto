@@ -6,8 +6,11 @@
 package Model;
 
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -76,8 +79,7 @@ public class Fichero {
          
     }
     
-    //Metodo Escribir
-    
+    //Metodo Escribir  
     private boolean Escribir(File fichero, String texto) throws FileNotFoundException
     {
         boolean r=false;
@@ -122,6 +124,98 @@ public class Fichero {
         {
             writer.close();
         }
-        return false;
+        return r;
     }
+    
+    //Metodo actualizar registro en el caso realiza la insercion 
+    //lo hace en el sgte datos 
+    public void Actualizar(String texto)
+    {
+        //Si existe el archivo abierto
+        if(this.file!=null)
+        {
+            try {
+                if(Escribir(this.file,texto))
+                {
+                      JOptionPane.showMessageDialog(null,"Archivo '" +this.file.getName() + "' Actualizado" );
+                }
+              }catch (FileNotFoundException ex) {
+                Logger.getLogger(Fichero.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        //Crea un nuevo archivo
+        else
+        {
+            Guardar(texto);
+        }
+        
+    }
+  
+ //Metodo Abrir    
+ public void Abrir()
+ {
+     filechooser = new JFileChooser();
+     filechooser.setFileFilter(filtro);
+     int r=filechooser.showOpenDialog(null);
+    if(r==JFileChooser.APPROVE_OPTION)
+    {
+        this.file=filechooser.getSelectedFile();
+        Leer(this.file);
+        this.isOpen=true;
+    }
+ }
+ 
+ //Metodo Leer
+ public boolean Leer(File fichero)
+ {
+     BufferedReader reader = null;
+     try
+     {
+         reader=new BufferedReader(new FileReader(fichero));
+                
+         this.contenido.clear();
+         String linea;
+         while((linea=reader.readLine())!=null)
+         {
+             this.contenido.add(linea);
+         }
+         Siguiente();
+         return true;
+     }catch(IOException ex)
+     {
+         System.out.println("Error a leer el archivo" + ex); 
+     }
+     finally{
+         try{
+             reader.close();
+         }catch(IOException ex)
+         {
+             System.out.println("Error al cerrar el archivo" +ex );
+         }
+     }
+     return false;
+ }
+    
+ //Metodo que avanza al siguiente registro del ArrayList
+ // y lo visualiza en el formulario
+ public void Siguiente()
+ {
+     this.index=(index>=contenido.size())?1:index+1;
+     int count=1;
+     Iterator i=contenido.iterator();
+     //Comienza en la busqueda
+     while(i.hasNext())
+     {
+         String tmp=i.next().toString();
+         if(count==index)
+         {
+             String[] datos=tmp.split(",");
+             this.doc.setText(datos[0]);
+             this.nom.setText(datos[1]);
+             this.ape.setText(datos[2]);
+             break;
+         }
+         count++;
+     }
+ }
 }

@@ -9,7 +9,8 @@ import Model.Fichero;
 import java.io.FileNotFoundException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+import com.l2fprod.gui.plaf.skin.SkinLookAndFeel;
+import javax.swing.UnsupportedLookAndFeelException;
 /**
  *
  * @author Geovanny Mendoza
@@ -22,9 +23,19 @@ public class FrmDatos extends javax.swing.JFrame {
      * Creates new form FrmDatos
      */
     public FrmDatos() {
+        try {
+            try {
+                SkinLookAndFeel.setSkin(SkinLookAndFeel.loadThemePack(getClass().getResource("/Fondo/aquathemepack.zip")));
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            SkinLookAndFeel.enable();
+        } catch (UnsupportedLookAndFeelException ex) {
+            ex.printStackTrace();
+        }
         initComponents();
         //pasamos los parametros a la clase Fichero
-        file= new Fichero(this.txtDocumento,this.txtNombre,this.txtApellido);
+        file = new Fichero(this.txtDocumento, this.txtNombre, this.txtApellido);
     }
 
     /**
@@ -36,6 +47,7 @@ public class FrmDatos extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuItem1 = new javax.swing.JMenuItem();
         txtDocumento = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
@@ -43,9 +55,24 @@ public class FrmDatos extends javax.swing.JFrame {
         txtApellido = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         cmdGuardar = new javax.swing.JButton();
+        cmdActualizar = new javax.swing.JButton();
+        cmdLimpiar = new javax.swing.JButton();
+        jDP = new javax.swing.JDesktopPane();
+        cmdSalir = new javax.swing.JButton();
+        cmdSgte = new javax.swing.JButton();
+        cmdAbrir = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jEditorPane1 = new javax.swing.JEditorPane();
+
+        jMenuItem1.setText("jMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Texto");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jLabel5.setText("Nombre");
 
@@ -61,46 +88,136 @@ public class FrmDatos extends javax.swing.JFrame {
             }
         });
 
+        cmdActualizar.setMnemonic('A');
+        cmdActualizar.setText("Actualizar");
+        cmdActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdActualizarActionPerformed(evt);
+            }
+        });
+
+        cmdLimpiar.setMnemonic('L');
+        cmdLimpiar.setText("Limpiar");
+        cmdLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdLimpiarActionPerformed(evt);
+            }
+        });
+
+        jDP.setBackground(new java.awt.Color(204, 204, 255));
+
+        javax.swing.GroupLayout jDPLayout = new javax.swing.GroupLayout(jDP);
+        jDP.setLayout(jDPLayout);
+        jDPLayout.setHorizontalGroup(
+            jDPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jDPLayout.setVerticalGroup(
+            jDPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        cmdSalir.setMnemonic('S');
+        cmdSalir.setText("Salir");
+        cmdSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdSalirActionPerformed(evt);
+            }
+        });
+
+        cmdSgte.setMnemonic('S');
+        cmdSgte.setText("Sgte");
+        cmdSgte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdSgteActionPerformed(evt);
+            }
+        });
+
+        cmdAbrir.setMnemonic('b');
+        cmdAbrir.setText("Abrir");
+        cmdAbrir.setActionCommand("Abrir");
+        cmdAbrir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdAbrirActionPerformed(evt);
+            }
+        });
+
+        jEditorPane1.setEditable(false);
+        jEditorPane1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        jEditorPane1.setText("Desarrollado por Geovanny Mendoza Gonzalez\nEmail: Geovanny0401@gmail.com");
+        jScrollPane1.setViewportView(jEditorPane1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(48, 48, 48)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(cmdGuardar)
-                        .addGap(104, 104, 104))
+                        .addContainerGap()
+                        .addComponent(jDP))
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(12, Short.MAX_VALUE)
+                        .addComponent(cmdAbrir)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cmdGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cmdActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cmdSgte)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cmdLimpiar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cmdSalir)
+                        .addGap(10, 10, 10))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel6))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel6))
+                                .addGap(35, 35, 35)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(121, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(73, 73, 73)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(9, 9, 9)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cmdGuardar)
-                .addContainerGap(49, Short.MAX_VALUE))
+                    .addComponent(cmdLimpiar)
+                    .addComponent(cmdSalir)
+                    .addComponent(cmdGuardar)
+                    .addComponent(cmdActualizar)
+                    .addComponent(cmdSgte)
+                    .addComponent(cmdAbrir))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jDP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -110,6 +227,42 @@ public class FrmDatos extends javax.swing.JFrame {
         String datos= this.txtDocumento.getText() + "," + this.txtNombre.getText() + "," +this.txtApellido.getText();
         file.Guardar(datos);
     }//GEN-LAST:event_cmdGuardarActionPerformed
+
+    private void cmdActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdActualizarActionPerformed
+        // TODO add your handling code here:
+        String datos= this.txtDocumento.getText() + "," + this.txtNombre.getText() + "," +this.txtApellido.getText();
+        file.Actualizar(datos);
+    }//GEN-LAST:event_cmdActualizarActionPerformed
+
+    private void cmdLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdLimpiarActionPerformed
+        // TODO add your handling code here:
+        this.txtDocumento.setText("");
+        this.txtNombre.setText("");
+        this.txtApellido.setText("");
+        
+        
+    }//GEN-LAST:event_cmdLimpiarActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        //centerWindows(FrmDatos);
+
+    }//GEN-LAST:event_formWindowOpened
+
+    private void cmdSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdSalirActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_cmdSalirActionPerformed
+
+    private void cmdSgteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdSgteActionPerformed
+        // TODO add your handling code here:
+        file.Siguiente();
+    }//GEN-LAST:event_cmdSgteActionPerformed
+
+    private void cmdAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdAbrirActionPerformed
+        // TODO add your handling code here:
+        file.Abrir();
+    }//GEN-LAST:event_cmdAbrirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -142,15 +295,39 @@ public class FrmDatos extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new FrmDatos().setVisible(true);
+             
             }
         });
     }
+    
+    private void centerWindows(java.awt.Component frame) {
+        //Center the window
+        java.awt.Dimension screenSize = jDP.getSize();
+        //Toolkit.getDefaultToolkit().getScreenSize();
+        java.awt.Dimension frameSize = frame.getSize();
+        if (frameSize.height > screenSize.height) {
+            frameSize.height = screenSize.height;
+        }
+        if (frameSize.width > screenSize.width) {
+            frameSize.width = screenSize.width;
+        }
+        frame.setLocation((screenSize.width - frameSize.width) / 2, (screenSize.height - frameSize.height) / 2);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton cmdAbrir;
+    private javax.swing.JButton cmdActualizar;
     private javax.swing.JButton cmdGuardar;
+    private javax.swing.JButton cmdLimpiar;
+    private javax.swing.JButton cmdSalir;
+    private javax.swing.JButton cmdSgte;
+    private javax.swing.JDesktopPane jDP;
+    private javax.swing.JEditorPane jEditorPane1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtDocumento;
     private javax.swing.JTextField txtNombre;
